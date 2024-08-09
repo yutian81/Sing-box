@@ -37,7 +37,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/main/sb_serv00.
 
 ### 一键四协议William改版，去掉tuic，加入socks5
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/yutian81/sing-box/main/sb_serv00_socks.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/yutian81/sing-box/main/sb-serv00-socks.sh)
 ```
 
 ### 一键四协议无交互安装脚本vmess-ws|vmess-ws-tls(argo)|hy2|tuic5，需设置环境变量
