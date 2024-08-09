@@ -480,7 +480,7 @@ sleep 3
 menu() {
    clear
    echo ""
-   purple "=== Serv00|ct8老王sing-box一键脚本（yutian81改版） ===\n"
+   purple "=== Serv00|ct8老王sing-box一键脚本（William改版） ===\n"
    purple "支持快捷命令，再次运行只需输入 sb\n"
    echo -e "${green}脚本地址:${re}${yellow}https://github.com/eooce/Sing-box${re}\n"
    purple "转载请著名出处，请勿滥用\n"
