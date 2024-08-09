@@ -4,12 +4,21 @@
 * 支持的系统：Ubuntu/Debian/CentOS/Alpine/Fedora/Rocky/Almalinux/kail
 * 注意nat小鸡安装完一键脚本之后需手动更改订阅端口和节点端口在允许范围内的端口，否则节点不通
 
-vps一键脚本
+### vps一键脚本
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/main/sing-box.sh)
 ```
 
-ssh综合工具箱一键脚本
+### vps一键脚本修改版，五协议组合：vless-reality|vmess-ws-tls(argo)|hysteria2|tuic5|socks5
+```
+bash <(curl -Ls https://raw.githubusercontent.com/yutian81/Sing-box/main/sing-box-socks.sh)
+```
+
+**注意**
+- **如果在CF官网手动设置argo隧道，Service要填写`http://localhost:8001`**
+- **socks5协议不要直连！不要直连！不要直连！该协议用于`cmliu/edgetunnel`项目中的`PROXYIP`变量**
+
+### ssh综合工具箱一键脚本
 ```
 curl -fsSL https://raw.githubusercontent.com/eooce/ssh_tool/main/ssh_tool.sh -o ssh_tool.sh && chmod +x ssh_tool.sh && ./ssh_tool.sh
 ```
@@ -21,20 +30,48 @@ curl -fsSL https://raw.githubusercontent.com/eooce/ssh_tool/main/ssh_tool.sh -o 
 * 注意：面板开的端口必须符合脚本中提示的要求，并且与输入的对应，面板运行应用程序的权限必须打开，个别服务器ip被墙换到新增加的服务器即可，客户端跳过证书验证需设置为true，否则hy2和tuic不通
 * 详细图文教程地址：https://linux.do/t/topic/169670
 
-一键四协议安装脚本vmess-ws|vmess-ws-tls(argo)|hy2|tuic5
+### 一键四协议安装脚本vmess-ws|vmess-ws-tls(argo)|hy2|tuic5
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/main/sb_serv00.sh)
 ```
-一键四协议无交互安装脚本vmess-ws|vmess-ws-tls(argo)|hy2|tuic5，需设置环境变量
+
+### 一键四协议William改版，去掉tuic，加入socks5
+```
+bash <(curl -Ls https://raw.githubusercontent.com/yutian81/sing-box/main/sb_serv00_socks.sh)
+```
+
+### 一键四协议无交互安装脚本vmess-ws|vmess-ws-tls(argo)|hy2|tuic5，需设置环境变量
 * 必填环境变量：VMESS_PORT HY2_PORT TUIC_PORT
 * 可选环境变量：UUID NEZHA_SERVER NEZHA_PORT NEZHA_KEY ARGO_DOMAIN ARGO_AUTH
 ```
 VMESS_PORT=tcp端口 HY2_PORT=udp端口 TUIC_PORT=udp端口 bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/main/sb_00.sh)
 ```
 
-一键三协议安装脚本vless-reality|hy2|tuic5 
+**注意**：如果在CF官网手动设置argo隧道，Service要填写**`http://localhost:你开放的vmess端口`**
+
+### 一键三协议安装脚本vless-reality|hy2|tuic5 
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/test/sb_00.sh)
+```
+
+## 以下为无交互单协议脚本，用于serv00和ct8
+```
+### HY2单协议(无交互，修改参数一键执行)：hy2|nezha-agent
+```
+curl -s https://raw.githubusercontent.com/eooce/scripts/master/containers-shell/00-hy2.sh | PORT=UDP端口 UUID=4967d7a9-0933-4351-ac2c-e8d1015ad629 bash
+```
+### TUIC单协议(无交互，修改参数一键执行)：tuic5|nezha-agent
+```
+curl -s https://raw.githubusercontent.com/eooce/scripts/master/containers-shell/00-tuic5.sh | PORT=UDP端口 UUID=4967d7a9-0933-4351-ac2c-e8d1015ad629 bash
+```
+### vless单协议(无交互，修改参数一键执行)：vless-ws-argo|nezha-agent, argo本地端口2052
+```
+curl -s https://raw.githubusercontent.com/eooce/scripts/master/containers-shell/00-vless.sh | NAME=serv00 UUID=4967d7a9-0933-4351-ac2c-e8d1015ad629 ARGO_DOMAIN=abc.123.net ARGO_AUTH=xxxxxxxxxxxxxxx bash
+```
+
+## 卸载所有脚本
+```
+bash -c "$(curl -L https://raw.githubusercontent.com/eooce/scripts/master/uninstall.sh)"
 ```
 
 # 3：游戏机hosting
