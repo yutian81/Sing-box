@@ -55,7 +55,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/eooce/sing-box/test/sb_00.sh)
 ```
 
 ## 以下为无交互单协议脚本，用于serv00和ct8
-```
+
 ### HY2单协议(无交互，修改参数一键执行)：hy2|nezha-agent
 ```
 curl -s https://raw.githubusercontent.com/eooce/scripts/master/containers-shell/00-hy2.sh | PORT=UDP端口 UUID=4967d7a9-0933-4351-ac2c-e8d1015ad629 bash
