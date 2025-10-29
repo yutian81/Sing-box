@@ -9,7 +9,7 @@ EXPOSE 3000/tcp
 RUN apk update && apk upgrade &&\
     apk add --no-cache openssl curl gcompat iproute2 coreutils bash && \
     chmod +x index.js &&\
-    npm install \
+    npm install &&\
     rm -rf /var/cache/apk/*
 
 CMD ["node", "index.js"]
