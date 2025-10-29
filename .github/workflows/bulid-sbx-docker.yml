@@ -1,0 +1,60 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ test ]
+    paths:
+      - 'nodejs/Dockerfile'
+      - 'nodejs/index.js'
+      - 'nodejs/package.json'
+  pull_request:
+    branches: [ test ]
+  workflow_dispatch:
+    refs: test
+
+jobs:
+  build-test-docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        refs: test
+
+      - name: Generate timestamp
+        id: timestamp
+        run: |
+          export TZ='Asia/Shanghai'
+          echo "IMAGE_TAG=$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+          echo "CHANGE_TIME=$(date +%Y年%m月%d日-%H:%M:%S)" >> $GITHUB_ENV
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: nodejs/
+          file: nodejs/Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/nodejs-sbx:${{ env.IMAGE_TAG }}
+            ghcr.io/${{ github.repository_owner }}/nodejs-sbx:empty
+          labels: |
+            org.opencontainers.image.description: 基于 Node.js 构建的 HTTP 服务器
+            org.opencontainers.image.source: https://github.com/${{ github.repository }}
+            org.opencontainers.image.licenses: MIT
+            org.opencontainers.image.revision: ${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
