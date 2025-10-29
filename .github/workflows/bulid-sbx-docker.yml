@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          refs: test
+          ref: test
 
       - name: Generate timestamp
         id: timestamp
@@ -45,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: nodejs/
-          file: nodejs/Dockerfile
+          file: Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
